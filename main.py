@@ -39,17 +39,18 @@ while running:
 
         if event.type == pygame.KEYUP:
             Globals.camera_move = 0
+    player.edge_collide(player1, [0, 99, 0, 99])
 
-    if not player1.pos[1] < 0.125:
+    if not player1.y_neg_colliding:
         if Globals.camera_move == 1:
             Globals.camera_y += 8
-    if not player1.pos[1] > 98.875:
+    if not player1.y_pos_colliding:
         if Globals.camera_move == 2:
             Globals.camera_y -= 8
-    if not player1.pos[0] > 98.875:
+    if not player1.x_neg_colliding:
         if Globals.camera_move == 3:
             Globals.camera_x -= 8
-    if not player1.pos[0] < 0.125:
+    if not player1.x_pos_colliding:
         if Globals.camera_move == 4:
             Globals.camera_x += 8
 
@@ -63,7 +64,6 @@ while running:
 
     pygame.display.update()
     clock.tick(30)
-    print(player1.pos)
 
 pygame.quit()
 sys.exit()

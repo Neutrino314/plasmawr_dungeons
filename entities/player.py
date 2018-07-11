@@ -7,6 +7,10 @@ class player:
         self.xy = [384, 256]
         self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/blank_south.png")
         self.pos = []
+        self.x_pos_colliding = False
+        self.x_neg_colliding = False
+        self.y_neg_colliding = False
+        self.y_pos_colliding = False
 
 
     def blit_player(self, surface):
@@ -15,4 +19,21 @@ class player:
 
     def pos_calc(self, camera_xy):
         self.pos = [(self.xy[0] - camera_xy[0]) / 64, (self.xy[1] - camera_xy[1]) / 64]
+        return
+
+    def edge_collide(self, boundaries):
+        if self.pos[0] < boundaries[0] + 0.125:
+            self.x_pos_colliding = True
+        elif self.pos[0] > boundaries[1] - 0.125:
+            self.x_neg_colliding = True
+        elif self.pos[1] < boundaries[2] + 0.125:
+            self.y_neg_colliding = True
+        elif self.pos[1] > boundaries[3] - 0.125:
+            self.y_pos_colliding = True
+        else:
+            self.x_neg_colliding = False
+            self.y_neg_colliding = False
+            self.x_pos_colliding = False
+            self.y_pos_colliding = False
+
         return
