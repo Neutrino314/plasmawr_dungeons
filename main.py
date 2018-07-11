@@ -50,7 +50,6 @@ while running:
         window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
 
     pygame.display.update()
-    clock.tick(30)
 
 pygame.quit()
 sys.exit()
