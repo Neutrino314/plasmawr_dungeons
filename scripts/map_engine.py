@@ -7,12 +7,9 @@ class map_engine:
         map_data = data.split("|")
         del map_data[(len(map_data) - 1)]
 
-        for tile in map_data:
-            map_data[map_data.index(tile)] = tile.split(",")
-
-        for tile in map_data:
-            tile[1] = int(tile[1])
-            tile[2] = int(tile[2])
-            map_data[map_data.index(tile)] = tile
+        for i in range(0, len(map_data)):
+            map_data[i] = map_data[i].split(",")
+            for j in range(1, 3):
+                map_data[i][j] = int(map_data[i][j])
 
         return map_data
