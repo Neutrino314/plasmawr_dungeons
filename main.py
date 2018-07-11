@@ -3,8 +3,12 @@ from scripts.globals import *
 from scripts.map_engine import *
 from scripts.textures import *
 from scripts.UltraColor import *
+from entities.player import *
 
 pygame.init()
+
+player1 = player("Alex")
+player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
 
 width, height = 800, 600
 window = pygame.display.set_mode((width, height), pygame.HWSURFACE)
@@ -36,20 +40,30 @@ while running:
         if event.type == pygame.KEYUP:
             Globals.camera_move = 0
 
-    if Globals.camera_move == 1:
-        Globals.camera_y += 8
-    if Globals.camera_move == 2:
-        Globals.camera_y -= 8
-    if Globals.camera_move == 3:
-        Globals.camera_x -= 8
-    if Globals.camera_move == 4:
-        Globals.camera_x += 8
+    if not player1.pos[1] < 0.125:
+        if Globals.camera_move == 1:
+            Globals.camera_y += 8
+    if not player1.pos[1] > 98.875:
+        if Globals.camera_move == 2:
+            Globals.camera_y -= 8
+    if not player1.pos[0] > 98.875:
+        if Globals.camera_move == 3:
+            Globals.camera_x -= 8
+    if not player1.pos[0] < 0.125:
+        if Globals.camera_move == 4:
+            Globals.camera_x += 8
+
+    player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
 
     window.fill(Color.Black)
     for tile in tile_data:
         window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
+    player.blit_player(player1, window)
+
 
     pygame.display.update()
+    clock.tick(30)
+    print(player1.pos)
 
 pygame.quit()
 sys.exit()

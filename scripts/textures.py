@@ -3,7 +3,7 @@ import pygame
 class Tiles:
 
     size = 64
-    blocked_types = []
+    blocked_types = ["3"]
 
     def load_texture(size, file):
 
@@ -15,5 +15,6 @@ class Tiles:
 
     grass = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/isolated_grass.png")
     concrete = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/concrete_isolated.png")
+    barrier = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/barrier.png")
 
-    texture_tags = {"1" : grass, "2" : concrete}
+    texture_tags = {"1" : grass, "2" : concrete, "3" : barrier}
