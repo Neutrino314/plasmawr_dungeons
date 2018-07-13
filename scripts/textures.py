@@ -4,6 +4,7 @@ class Tiles:
 
     size = 64
     blocked_types = ["3"]
+    blocked = []
 
     def load_texture(size, file):
 
