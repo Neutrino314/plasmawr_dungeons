@@ -41,13 +41,13 @@ class player:
     def barrier_collide(self, blocked):
 
         for i in range(0, len(blocked)):
-            if self.pos[0] < blocked[i][0] + 1.125 and (self.pos[1] < blocked[i][1] + 1 and self.pos[1] > blocked[i][1] - 0.875):
+            if self.pos[0] < blocked[i][0] + 1.125 and (self.pos[1] < blocked[i][1] + 1 and self.pos[1] > blocked[i][1] - 0.875) and self.pos[0] > blocked[i][0] - 1.125:
                 self.x_pos_colliding = True
-            if self.pos[0] > blocked[i][0] - 1.125 and (self.pos[1] < blocked[i][1] + 1 and self.pos[1] > blocked[i][1] - 0.875):
+            if self.pos[0] > blocked[i][0] - 1.125 and (self.pos[1] < blocked[i][1] + 1 and self.pos[1] > blocked[i][1] - 0.875) and self.pos[0] < blocked[i][0] + 1.125:
                 self.x_neg_colliding = True
-            if self.pos[1] < blocked[i][1] + 1.125 and (self.pos[0] < blocked[i][0] + 1 and self.pos[0] > blocked[i][0] - 0.875):
+            if self.pos[1] < blocked[i][1] + 1.125 and (self.pos[0] < blocked[i][0] + 1 and self.pos[0] > blocked[i][0] - 0.875) and self.pos[1] > blocked[i][1] - 1.125:
                 self.y_neg_colliding = True
-            if self.pos[1] > blocked[i][1] - 1.125 and (self.pos[0] < blocked[i][0] + 1 and self.pos[0] > blocked[i][0] - 0.875):
+            if self.pos[1] > blocked[i][1] - 1.125 and (self.pos[0] < blocked[i][0] + 1 and self.pos[0] > blocked[i][0] - 0.875) and self.pos[1] < blocked[i][1] + 1.125:
                 self.y_pos_colliding = True
 
         return

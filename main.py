@@ -4,11 +4,20 @@ from scripts.map_engine import *
 from scripts.textures import *
 from scripts.UltraColor import *
 from entities.player import *
+from entities.NPC import *
 
 pygame.init()
 
 player1 = player("Alex")
 player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
+
+steffan = NPC("stwffin", [0, 0],["Have you seen link?", "We still haven't finished..."], [0, 128])
+Skinner = NPC("Skinner", [64, 128], ["Do you know what I did in Nam?", "It wasn't pretty..."], [64, 256])
+
+npc_list = [steffan, Skinner]
+
+for npc in npc_list:
+    NPC.npc_pos(npc)
 
 width, height = 800, 600
 window = pygame.display.set_mode((width, height), pygame.HWSURFACE)
@@ -41,11 +50,21 @@ while running:
                 if key_pressed == pygame.K_a:
                     Globals.camera_move = 4
 
+                for npc in npc_list:
+                    NPC.check_interacting(npc, player1.pos, key_pressed)
+                    if npc.interacting == True:
+                        Globals.scene = npc.name
+                    else:
+                        continue
+
+
             if event.type == pygame.KEYUP:
                 Globals.camera_move = 0
 
         player.edge_collide(player1, [0, 99, 0, 99])
         player.barrier_collide(player1, Tiles.blocked)
+        for npc in npc_list:
+            npc.xy = NPC.walk_x(npc, 60)
 
         if not player1.y_neg_colliding:
             if Globals.camera_move == 1:
@@ -61,11 +80,15 @@ while running:
                 Globals.camera_x += 8
 
         player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
+        for npc in npc_list:
+            NPC.npc_pos(npc)
 
         window.fill(Color.Black)
         for tile in tile_data:
             window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
         player.blit_player(player1, window)
+        for npc in npc_list:
+            window.blit(npc.sprite, (npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y))
 
     pygame.display.update()
     clock.tick(30)
