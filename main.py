@@ -48,6 +48,9 @@ while running:
                     Globals.camera_move = 3
                 if key_pressed == pygame.K_a:
                     Globals.camera_move = 4
+                if key_pressed == pygame.K_e:
+                    Globals.scene = "backpack"
+                    player1.in_backpack = True
 
                 for npc in npc_list:
                     NPC.check_interacting(npc, player1.pos, key_pressed)
@@ -111,6 +114,33 @@ while running:
             else:
                 Globals.scene = "world"
 
+    if Globals.scene == "backpack":
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+
+                key_pressed = event.key
+
+                if key_pressed == pygame.K_e:
+                    Globals.scene = "world"
+                    player1.in_backpack = False
+                if key_pressed == pygame.K_w:
+                    player1.selected_item[1] -= 1
+                if key_pressed == pygame.K_s:
+                    player1.selected_item[1] += 1
+                if key_pressed == pygame.K_d:
+                    player1.selected_item[0] += 1
+                if key_pressed == pygame.K_a:
+                    player1.selected_item[0] -= 1
+
+            if event.type == pygame.KEYUP:
+                pass
+
+        backpack = player.in_backpack(player1)
+        window.blit(backpack, (20, 20))
 
     pygame.display.update()
     clock.tick(30)

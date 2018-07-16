@@ -53,3 +53,38 @@ class player:
                 self.y_pos_colliding = True
 
         return
+
+    def in_backpack(self):
+
+        if self.selected_item[1] < 0:
+            self.selected_item[1] = 6
+        if self.selected_item[1] > 6:
+            self.selected_item[1] = 0
+        if self.selected_item[0] < 0:
+            self.selected_item[0] = 5
+        if self.selected_item[0] > 5:
+            self.selected_item[0] = 0
+
+        surface = pygame.Surface((760, 560), pygame.HWSURFACE|pygame.SRCALPHA)
+        backpack = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/backpack/backpack_blank.png")
+        active = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/backpack/backpack_active.png")
+        inactive = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/backpack/backpack_inactive.png")
+        y = 65
+        x = 65
+
+        surface.blit(backpack, (0, 0))
+
+        for row in range(0, 7):
+            for column in range(0, 6):
+                if [column, row] == self.selected_item:
+                    surface.blit(active, (x, y))
+                    x += 65
+                else:
+                    surface.blit(inactive, (x, y))
+                    x += 65
+            y += 65
+            x = 65
+
+        surface.blit(inactive, (575, 130))
+
+        return surface
