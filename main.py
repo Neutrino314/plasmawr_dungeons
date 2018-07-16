@@ -12,7 +12,7 @@ player1 = player("Alex")
 player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
 
 steffan = NPC("stwffin", [0, 0],["Have you seen link?", "We still haven't finished..."], [0, 128])
-Skinner = NPC("Skinner", [64, 128], ["Do you know what I did in Nam?", "It wasn't pretty..."], [64, 256])
+Skinner = NPC("Skinner", [256, 128], ["Do you know what I did in Nam?", "It wasn't pretty..."], [256, 512])
 
 npc_list = [steffan, Skinner]
 
@@ -25,7 +25,6 @@ pygame.display.set_caption("The Dungeons of Plasmawr")
 
 tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/barrier.txt")
 Tiles.blocked = map_engine.blocked(tile_data, Tiles.blocked_types, Tiles.blocked)
-print(Tiles.blocked)
 
 clock = pygame.time.Clock()
 
@@ -86,9 +85,32 @@ while running:
         window.fill(Color.Black)
         for tile in tile_data:
             window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
-        player.blit_player(player1, window)
         for npc in npc_list:
             window.blit(npc.sprite, (npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y))
+        player.blit_player(player1, window)
+
+    for npc in npc_list:
+        if Globals.scene == npc.name:
+
+            for event in pygame.event.get():
+
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.KEYDOWN:
+
+                    key_pressed = event.key
+                    NPC.check_interacting(npc, player1.pos, key_pressed)
+
+                if event.type == pygame.KEYUP:
+                    pass
+
+            dialogue = NPC.dialogue(npc, (600, 50))
+
+            if npc.interacting == True:
+                window.blit(dialogue, (20, 400))
+            else:
+                Globals.scene = "world"
+
 
     pygame.display.update()
     clock.tick(30)
