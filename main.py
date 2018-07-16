@@ -23,7 +23,7 @@ width, height = 800, 600
 window = pygame.display.set_mode((width, height), pygame.HWSURFACE)
 pygame.display.set_caption("The Dungeons of Plasmawr")
 
-tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/barrier.txt")
+tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/blank.txt")
 Tiles.blocked = map_engine.blocked(tile_data, Tiles.blocked_types, Tiles.blocked)
 
 clock = pygame.time.Clock()

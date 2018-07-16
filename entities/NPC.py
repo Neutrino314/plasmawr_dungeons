@@ -8,7 +8,7 @@ class NPC:
         self.xy = xy
         self.pos = []
         self.dialogue = dialogue
-        self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/npc_south.png")
+        self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/NPC/npc_south.png")
         self.end_reached = False
         self.wait = 0
         self.interacting = False
@@ -75,8 +75,8 @@ class NPC:
         else:
 
             surface = pygame.Surface((760, 200), pygame.HWSURFACE|pygame.SRCALPHA)
-            logo = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/plasmawr_logo.png")
-            dialogue_menu = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue_menu.png")
+            logo = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue/plasmawr_logo.png")
+            dialogue_menu = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue/dialogue_menu.png")
             surface.blit(logo, (500, 1))
             surface.blit(dialogue_menu, (0, 0))
 
@@ -84,7 +84,7 @@ class NPC:
             lines = []
             text_list = self.dialogue[self.text_counter]
             text_list = text_list.split(" ")
-            font = pygame.font.Font("/home/euler/Desktop/plasmawr_game/Assets/PressStart2P.ttf", 13)
+            font = pygame.font.Font("/home/euler/Desktop/plasmawr_game/Assets/dialogue/PressStart2P.ttf", 13)
             y = 25
 
             for i in range(0, len(text_list)):

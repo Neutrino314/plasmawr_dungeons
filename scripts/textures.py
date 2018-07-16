@@ -14,8 +14,8 @@ class Tiles:
 
         return surface
 
-    grass = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/isolated_grass.png")
-    concrete = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/concrete_isolated.png")
-    barrier = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/barrier.png")
+    grass = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/textures/isolated_grass.png")
+    concrete = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/textures/concrete_isolated.png")
+    barrier = load_texture(size, "/home/euler/Desktop/plasmawr_game/Assets/textures/barrier.png")
 
     texture_tags = {"1" : grass, "2" : concrete, "3" : barrier}

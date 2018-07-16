@@ -5,12 +5,14 @@ class player:
     def __init__(self, name):
         self.name = name
         self.xy = [384, 256]
-        self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/blank_south.png")
+        self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/player/blank_south.png")
         self.pos = []
         self.x_pos_colliding = False
         self.x_neg_colliding = False
         self.y_neg_colliding = False
         self.y_pos_colliding = False
+        self.in_backpack = False
+        self.selected_item = [0, 0]
 
 
     def blit_player(self, surface):
