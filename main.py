@@ -132,9 +132,7 @@ while running:
         for tile in tile_data:
             if render_chunk.collidepoint(tile[1] + Globals.camera_x, tile[2] + Globals.camera_y) == True:
                 window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
-                print("Tile rendered")
             else:
-                print("Tile not rendered")
                 continue
         for npc in npc_list:
             if render_chunk.collidepoint(npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y) == True:
@@ -162,7 +160,7 @@ while running:
             dialogue = NPC.dialogue(npc, (600, 50))
 
             if npc.interacting == True:
-                window.blit(dialogue, (20, 400))
+                window.blit(dialogue, (((render_chunk[2] - 128) - 760) / 2, render_chunk[3] - 348))
             else:
                 Globals.scene = "world"
 
