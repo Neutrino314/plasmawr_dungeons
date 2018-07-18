@@ -8,6 +8,7 @@ from scripts.map_engine import *
 
 pygame.init()
 
+
 width, height = 800, 600
 window = pygame.display.set_mode((width, height), pygame.HWSURFACE|pygame.RESIZABLE)
 pygame.display.set_caption("Map editor")
