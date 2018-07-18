@@ -9,7 +9,7 @@ from scripts.map_engine import *
 pygame.init()
 
 width, height = 800, 600
-window = pygame.display.set_mode((width, height), pygame.HWSURFACE)
+window = pygame.display.set_mode((width, height), pygame.HWSURFACE|pygame.RESIZABLE)
 pygame.display.set_caption("Map editor")
 
 mouse_x, mouse_y = 0, 0
@@ -53,6 +53,8 @@ while running:
 
         if event.type == pygame.KEYUP:
             Globals.camera_move = 0
+        if event.type == pygame.VIDEORESIZE:
+            display = pygame.display.set_mode(event.dict['size'], pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
 
         if event.type == pygame.MOUSEMOTION:
             mouse_x, mouse_y = pygame.mouse.get_pos()

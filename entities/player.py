@@ -2,7 +2,7 @@ import pygame, math
 
 class player:
 
-    def __init__(self, name):
+    def __init__(self, name, health):
         self.name = name
         self.xy = [384, 256]
         self.sprite = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/player/blank_south.png")
@@ -13,6 +13,7 @@ class player:
         self.y_pos_colliding = False
         self.in_backpack = False
         self.selected_item = [0, 0]
+        self.health = health
 
 
     def blit_player(self, surface):

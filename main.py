@@ -8,7 +8,7 @@ from entities.NPC import *
 
 pygame.init()
 
-player1 = player("Alex")
+player1 = player("Alex", 9)
 player.pos_calc(player1, [Globals.camera_x, Globals.camera_y])
 
 steffan = NPC("stwffin", [0, 0],["Have you seen link?", "We still haven't finished..."], [0, 128])
@@ -20,7 +20,7 @@ for npc in npc_list:
     NPC.npc_pos(npc)
 
 width, height = 800, 600
-window = pygame.display.set_mode((width, height), pygame.HWSURFACE)
+window = pygame.display.set_mode((width, height), pygame.HWSURFACE|pygame.RESIZABLE)
 pygame.display.set_caption("The Dungeons of Plasmawr")
 
 tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/blank.txt")
@@ -29,6 +29,7 @@ Tiles.blocked = map_engine.blocked(tile_data, Tiles.blocked_types, Tiles.blocked
 clock = pygame.time.Clock()
 
 running = True
+resizing = False
 
 while running:
 
@@ -59,10 +60,35 @@ while running:
                     else:
                         continue
 
-
             if event.type == pygame.KEYUP:
                 Globals.camera_move = 0
 
+            if event.type == pygame.VIDEORESIZE:
+                display = pygame.display.set_mode(event.dict['size'], pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
+                resizing = True
+                x, y = 0, 0
+
+
+                while resizing:
+                    if x < (event.dict["size"][0] / 2):
+                        x += 64
+                        continue
+                    elif x > (event.dict["size"][0] / 2):
+                        x -= 64
+                        player1.xy[0] = x
+                        resizing = False
+
+                    if y < (event.dict["size"][1] / 2):
+                        y += 64
+                        continue
+                    elif y > (event.dict["size"][1] / 2):
+                        y -= 64
+                        player1.xy[1] = y
+                        resizing = False
+                        continue
+
+
+        print(player1.pos)
         player.edge_collide(player1, [0, 99, 0, 99])
         player.barrier_collide(player1, Tiles.blocked)
         for npc in npc_list:
