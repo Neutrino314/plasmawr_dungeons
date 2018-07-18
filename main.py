@@ -29,7 +29,7 @@ tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/blank.tx
 Tiles.blocked = map_engine.blocked(tile_data, Tiles.blocked_types, Tiles.blocked)
 render_chunk = pygame.Rect(-64, -64, (size[0] + 128), (size[1] + 128))
 
-def resize(play, npc_array, tile_size, dimensions, resizing):
+def resize(play, dimensions, resizing):
 
     dimensions_list = [dimensions[0] - size[0], dimensions[1] - size[1]]
 
@@ -103,7 +103,7 @@ while running:
                 Globals.camera_move = 0
 
             if event.type == pygame.VIDEORESIZE:
-                resize(player1, npc_list, Tiles.size, [event.dict["size"][0], event.dict["size"][1]], True)
+                resize(player1, [event.dict["size"][0], event.dict["size"][1]], True)
                 render_chunk = pygame.Rect(-64, -64, event.dict["size"][0] + 128, event.dict["size"][1] + 128)
 
         player.edge_collide(player1, [0, 99, 0, 99])
