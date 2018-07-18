@@ -21,16 +21,17 @@ npc_list = [steffan, Skinner]
 for npc in npc_list:
     NPC.npc_pos(npc)
 
-width, height = 800, 600
-window = pygame.display.set_mode((width, height), pygame.HWSURFACE|pygame.RESIZABLE|pygame.DOUBLEBUF)
+size = [800, 600]
+window = pygame.display.set_mode(size, pygame.HWSURFACE|pygame.RESIZABLE|pygame.DOUBLEBUF)
 pygame.display.set_caption("The Dungeons of Plasmawr")
 
 tile_data = map_engine.load_map("/home/euler/Desktop/plasmawr_game/maps/blank.txt")
 Tiles.blocked = map_engine.blocked(tile_data, Tiles.blocked_types, Tiles.blocked)
+render_chunk = pygame.Rect(-64, -64, (size[0] + 128), (size[1] + 128))
 
-def resize(play, npc_array, size, dimensions, resizing):
+def resize(play, npc_array, tile_size, dimensions, resizing):
 
-    dimensions_list = [dimensions[0] - width, dimensions[1] - height]
+    dimensions_list = [dimensions[0] - size[0], dimensions[1] - size[1]]
 
     display = pygame.display.set_mode(event.dict['size'], pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.RESIZABLE)
     resizing = True
@@ -102,8 +103,8 @@ while running:
                 Globals.camera_move = 0
 
             if event.type == pygame.VIDEORESIZE:
-                resize(player1, npc_list, Tiles.size, event.dict["size"], True)
-
+                resize(player1, npc_list, Tiles.size, [event.dict["size"][0], event.dict["size"][1]], True)
+                render_chunk = pygame.Rect(-64, -64, event.dict["size"][0] + 128, event.dict["size"][1] + 128)
 
         player.edge_collide(player1, [0, 99, 0, 99])
         player.barrier_collide(player1, Tiles.blocked)
@@ -129,9 +130,17 @@ while running:
 
         window.fill(Color.Black)
         for tile in tile_data:
-            window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
+            if render_chunk.collidepoint(tile[1] + Globals.camera_x, tile[2] + Globals.camera_y) == True:
+                window.blit(Tiles.texture_tags[tile[0]], (tile[1] + Globals.camera_x, tile[2] + Globals.camera_y))
+                print("Tile rendered")
+            else:
+                print("Tile not rendered")
+                continue
         for npc in npc_list:
-            window.blit(npc.sprite, (npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y))
+            if render_chunk.collidepoint(npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y) == True:
+                window.blit(npc.sprite, (npc.xy[0] + Globals.camera_x, npc.xy[1] + Globals.camera_y))
+            else:
+                continue
         player.blit_player(player1, window)
 
 #loop used when interacting with NPC's
