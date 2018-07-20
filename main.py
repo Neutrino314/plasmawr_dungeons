@@ -5,6 +5,7 @@ from scripts.textures import *
 from scripts.UltraColor import *
 from player.player import *
 from npc.NPC import *
+from player.backpack import *
 
 pygame.init()
 
