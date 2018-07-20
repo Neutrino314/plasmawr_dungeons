@@ -1,5 +1,4 @@
 import pygame, math
-from backpack import *
 
 class player:
 

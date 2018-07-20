@@ -1,11 +1,11 @@
 import pygame, sys, math
-from scripts.globals import *
-from scripts.map_engine import *
-from scripts.textures import *
-from scripts.UltraColor import *
-from player.player import *
-from npc.NPC import *
-from player.backpack import *
+from globals import *
+from consumables import *
+from NPC import *
+from player import *
+from map_engine import *
+from textures import *
+from UltraColor import *
 
 pygame.init()
 
