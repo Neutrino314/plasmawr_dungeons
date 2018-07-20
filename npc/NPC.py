@@ -73,23 +73,55 @@ class NPC:
             return
 
         else:
+            spritesheet = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue/dialogue_menu.png")
+            spritesheet = pygame.transform.scale(spritesheet, (192, 192))
+            sprite_dict = {"top_left" : spritesheet.subsurface((0, 0, 64, 64)),
+            "left" : spritesheet.subsurface((0, 64, 64, 64)),
+            "bottom_left" : spritesheet.subsurface((0, 128, 64, 64)),
+            "bottom" : spritesheet.subsurface((64, 128, 64, 64)),
+            "bottom_right" : spritesheet.subsurface((128, 128, 64, 64)),
+            "right" : spritesheet.subsurface((128, 64, 64, 64)),
+            "top_right" : spritesheet.subsurface((128, 0, 64, 64)),
+            "top" : spritesheet.subsurface((64, 0, 64, 64)),
+            "centre" : spritesheet.subsurface((64, 64, 64, 64))}
+            dimensions = [11, 3]
 
-            surface = pygame.Surface((760, 200), pygame.HWSURFACE|pygame.SRCALPHA)
-            logo = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue/plasmawr_logo.png")
-            dialogue_menu = pygame.image.load("/home/euler/Desktop/plasmawr_game/Assets/dialogue/dialogue_menu.png")
-            surface.blit(logo, (500, 1))
-            surface.blit(dialogue_menu, (0, 0))
+            surface = pygame.Surface((dimensions[0] * 64, dimensions[1] * 64), pygame.HWSURFACE|pygame.SRCALPHA)
 
+            for row in range(0, int(dimensions[1])):
+                for column in range(0, int(dimensions[0])):
+
+                    if row == 0:
+                        if column == 0:
+                            surface.blit(sprite_dict["top_left"], (0, 0))
+                        elif column == dimensions[0] - 1:
+                            surface.blit(sprite_dict["top_right"], (column * 64, row))
+                        else:
+                            surface.blit(sprite_dict["top"], (column * 64, row))
+                    elif row == dimensions[1] - 1:
+                        if column == 0:
+                            surface.blit(sprite_dict["bottom_left"], (0, row * 64))
+                        elif column == dimensions[0] - 1:
+                            surface.blit(sprite_dict["bottom_right"], (column * 64, row * 64))
+                        else:
+                            surface.blit(sprite_dict["bottom"], (column * 64, row * 64))
+                    elif column == 0:
+                        surface.blit(sprite_dict["left"], (0, row * 64))
+                    elif column == dimensions[0]- 1:
+                        surface.blit(sprite_dict["right"], (column * 64, row * 64))
+                    else:
+                        surface.blit(sprite_dict["centre"], (column * 64, row * 64))
+
+            font = pygame.font.Font("/home/euler/Desktop/plasmawr_game/Assets/dialogue/PressStart2P.ttf", 13)
             cur_line = ""
-            lines = []
             text_list = self.dialogue[self.text_counter]
             text_list = text_list.split(" ")
-            font = pygame.font.Font("/home/euler/Desktop/plasmawr_game/Assets/dialogue/PressStart2P.ttf", 13)
+            lines = []
             y = 25
 
             for i in range(0, len(text_list)):
 
-                if font.size(cur_line + text_list[i] + " ")[0] > dimensions[0]:
+                if font.size(cur_line + text_list[i] + " ")[0] > dimensions[0] * 64:
                     lines.append(cur_line)
                     cur_line = text_list[i] + " "
                 elif i == len(text_list) - 1:
@@ -100,7 +132,8 @@ class NPC:
 
             for line in lines:
                 text = font.render(line, 0, (0, 0, 0))
-                surface.blit(text, (25, 25))
+                surface.blit(text, (64, 32))
                 y += 25
 
-        return surface
+
+            return surface

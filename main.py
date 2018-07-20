@@ -3,8 +3,8 @@ from scripts.globals import *
 from scripts.map_engine import *
 from scripts.textures import *
 from scripts.UltraColor import *
-from entities.player import *
-from entities.NPC import *
+from player.player import *
+from npc.NPC import *
 
 pygame.init()
 
@@ -105,6 +105,7 @@ while running:
             if event.type == pygame.VIDEORESIZE:
                 resize(player1, [event.dict["size"][0], event.dict["size"][1]], True)
                 render_chunk = pygame.Rect(-64, -64, event.dict["size"][0] + 128, event.dict["size"][1] + 128)
+                size = [event.dict["size"][0], event.dict["size"][1]]
 
         player.edge_collide(player1, [0, 99, 0, 99])
         player.barrier_collide(player1, Tiles.blocked)
@@ -157,10 +158,10 @@ while running:
                 if event.type == pygame.KEYUP:
                     pass
 
-            dialogue = NPC.dialogue(npc, (600, 50))
+            dialogue = NPC.dialogue(npc, size)
 
             if npc.interacting == True:
-                window.blit(dialogue, (((render_chunk[2] - 128) - 760) / 2, render_chunk[3] - 348))
+                window.blit(dialogue, ((size[0] - 704) / 2, (size[1] / 3) * 2))
             else:
                 Globals.scene = "world"
 
@@ -191,7 +192,7 @@ while running:
                 pass
 
         backpack = player.in_backpack(player1)
-        window.blit(backpack, (20, 20))
+        window.blit(backpack, ((size[0] - 760) / 2, (size[1] - 560) / 2))
 
 #updating the display
     pygame.display.update()
